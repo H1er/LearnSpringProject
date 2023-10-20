@@ -7,9 +7,9 @@ services:
       - 5432:5432
     restart: always
     environment:
-      POSTGRES_USER: jesus_usr
-      POSTGRES_PASSWORD: jesus_psswd
-      POSTGRES_DB: jesus_db
+      POSTGRES_USER: dbusr
+      POSTGRES_PASSWORD: dbpwd
+      POSTGRES_DB: testdb
     volumes:
       - ./volume/postgresql:/var/lib/postgresql/data
 

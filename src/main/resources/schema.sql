@@ -14,6 +14,6 @@ CREATE TABLE "animal"(
     "age"  INTEGER,
     "name" VARCHAR(50),
     "race" VARCHAR(50),
-    "owner_id" VARCHAR(100),
+    "owner_id" INTEGER,
     CONSTRAINT "owner_id_fk" FOREIGN KEY (owner_id) REFERENCES owner(id)
 );
