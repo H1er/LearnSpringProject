@@ -1,16 +1,15 @@
 version: '3.1'
 services:
 
-  postgres_db:
+  postgres_app:
     image: postgres
     ports:
-      - 5432:5432
+      - 25432:5432
     restart: always
     environment:
       POSTGRES_USER: dbusr
       POSTGRES_PASSWORD: dbpwd
-      POSTGRES_DB: testdb
+      POSTGRES_DB: appdb
     volumes:
-      - ./volume/postgresql:/var/lib/postgresql/data
-
+      - ./volume/postgresql:/var/lib/postgresql/apdata
 
