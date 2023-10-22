@@ -1,6 +1,6 @@
 package com.example.demo.dao.impl;
 
-import com.example.demo.dao.impl.OwnerDAOImpl;
+import com.example.demo.TestDataUtil;
 import com.example.demo.domain.Owner;
 
 import org.junit.jupiter.api.Test;
@@ -25,12 +25,7 @@ public class OwnerDAOImplTests {
 
      @Test
      public void testCreateOwnerCorrectSQL(){
-         Owner owner = Owner.builder()
-                 .id(1L)
-                 .name("James")
-                 .age(24L)
-                 .address("C/street, 24")
-                 .build();
+         Owner owner = TestDataUtil.getTestOwner();
 
          subject.create(owner);
 

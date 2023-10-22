@@ -1,5 +1,6 @@
 package com.example.demo.dao.impl;
 
+import com.example.demo.TestDataUtil;
 import com.example.demo.dao.impl.AnimalDAOImpl;
 import com.example.demo.domain.Animal;
 import org.junit.jupiter.api.Test;
@@ -25,13 +26,7 @@ public class AnimalDAOImplTests {
     @Test
     public void testCreateAnimalCorrectSQL()
     {
-        Animal animal = Animal.builder() // Esta forma de crear objetos es posible gracias a que la clase utiliza
-                .id(1L)                  // el patron de diseño builder, especificado por la etiqueta @Builder de lombok
-                .age(4L)
-                .name("cosa")
-                .race("raza")
-                .owner_id(1L)
-                .build();
+        Animal animal = TestDataUtil.getTestAnimal();
 
         subject.create(animal);
         verify(jdbcTemplate).update("INSERT INTO animal (id,age,name,race,owner_id) VALUES (?,?,?,?,?)",
