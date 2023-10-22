@@ -25,7 +25,7 @@ public class OwnerDAOImplTests {
 
      @Test
      public void testCreateOwnerCorrectSQL(){
-         Owner owner = TestDataUtil.getTestOwner();
+         Owner owner = TestDataUtil.getTestOwnerA();
 
          subject.create(owner);
 
@@ -44,5 +44,13 @@ public class OwnerDAOImplTests {
                 ArgumentMatchers.<OwnerDAOImpl.OwnerRowMapper>any(),
                 eq(1L)
         );
+    }
+
+    @Test
+    public void testGetAllCorrectSQL()
+    {
+        subject.getAll();
+        verify(jdbcTemplate).query(eq("SELECT id,name,age,address FROM owner"),
+                ArgumentMatchers.<OwnerDAOImpl.OwnerRowMapper>any());
     }
 }

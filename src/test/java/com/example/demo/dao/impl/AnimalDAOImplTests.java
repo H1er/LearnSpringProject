@@ -26,7 +26,7 @@ public class AnimalDAOImplTests {
     @Test
     public void testCreateAnimalCorrectSQL()
     {
-        Animal animal = TestDataUtil.getTestAnimal();
+        Animal animal = TestDataUtil.getTestAnimalA();
 
         subject.create(animal);
         verify(jdbcTemplate).update("INSERT INTO animal (id,age,name,race,owner_id) VALUES (?,?,?,?,?)",
@@ -42,6 +42,14 @@ public class AnimalDAOImplTests {
                                         ArgumentMatchers.<AnimalDAOImpl.AnimalRowMapper>any(),
                                         eq(1L)
         );
+    }
+
+    @Test
+    public void testReadManyCorrectSQL()
+    {
+        subject.getAll();
+        verify(jdbcTemplate).query(eq("SELECT id,age,name,race,owner_id FROM animal"),
+                                    ArgumentMatchers.<AnimalDAOImpl.AnimalRowMapper>any());
     }
 
 }
