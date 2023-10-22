@@ -4,12 +4,14 @@ import com.example.demo.dao.AnimalDAO;
 import com.example.demo.domain.Animal;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+@Component
 public class AnimalDAOImpl implements AnimalDAO {
     private final JdbcTemplate jdbcTemplate;
 
