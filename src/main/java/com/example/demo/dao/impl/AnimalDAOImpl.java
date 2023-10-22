@@ -36,6 +36,12 @@ public class AnimalDAOImpl implements AnimalDAO {
         return results.stream().findFirst();
     }
 
+    public List<Animal> getAll()
+    {
+        return jdbcTemplate.query("SELECT id,age,name,race,owner_id FROM animal",
+                                        new AnimalRowMapper());
+    }
+
     public static class AnimalRowMapper implements RowMapper<Animal>{
 
         @Override

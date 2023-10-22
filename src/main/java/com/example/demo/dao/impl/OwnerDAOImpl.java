@@ -29,12 +29,20 @@ public class OwnerDAOImpl implements OwnerDAO {
 
     }
 
+    /* A la hora de hacer queries a bdd, el método query() deolverá una lista de objetos especificados al implementar
+     * la interfaz rowMapper (ver cabecera de cada rowmapper) */
     public Optional<Owner> findOne(long ownerId)
     {
         List<Owner> results = jdbcTemplate.query("SELECT id,name,age,address FROM owner WHERE id=? LIMIT 1",
                 new OwnerDAOImpl.OwnerRowMapper(),ownerId);
 
         return results.stream().findFirst();
+    }
+
+    public List<Owner> getAll()
+    {
+        return jdbcTemplate.query("SELECT id,name,age,address FROM owner",
+                                            new OwnerRowMapper()) ;
     }
 
     public static class OwnerRowMapper implements RowMapper<Owner> {
