@@ -42,6 +42,22 @@ public class AnimalDAOImpl implements AnimalDAO {
                                         new AnimalRowMapper());
     }
 
+    public void update(Animal animal)
+    {
+        jdbcTemplate.update("UPDATE animal SET age=?, name=?, race=?, owner_id=? WHERE id=?",
+                                animal.getAge(),
+                                animal.getName(),
+                                animal.getRace(),
+                                animal.getOwner_id(),
+                                animal.getId());
+
+    }
+
+    public void delete(Long  animalId)
+    {
+        jdbcTemplate.update("DELETE FROM animal WHERE id=?",animalId);
+    }
+
     public static class AnimalRowMapper implements RowMapper<Animal>{
 
         @Override

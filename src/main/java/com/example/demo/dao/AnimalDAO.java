@@ -12,4 +12,8 @@ public interface AnimalDAO {
     public Optional<Animal> findOne(long animalId);
 
     public List<Animal> getAll();
+
+    public void update(Animal animal);
+
+    public void delete(Long animalId);
 }
