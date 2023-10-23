@@ -55,4 +55,34 @@ public class OwnerDAOImplIntegrationTests {
 
 
     }
+
+    @Test
+    public void testOwnerIsCreatedAndModified()
+    {
+        Owner owner = TestDataUtil.getTestOwnerA();
+        Long owner_age_prev = owner.getAge();
+        String owner_name_prev = owner.getName();
+
+        subject.create(owner);
+        owner.setAge((owner_age_prev+10L));
+        owner.setName(owner_name_prev+" test");
+
+        subject.update(owner);
+        Optional<Owner> testowner = subject.findOne(owner.getId());
+
+        assertThat(testowner.isPresent());
+        assertThat(testowner.get().getAge()).isEqualTo(owner_age_prev+10L);
+        assertThat(testowner.get().getName()).isEqualTo(owner_name_prev+" test");
+    }
+
+    @Test
+    public void testOwnerIsCreatedAndDeleted()
+    {
+        Owner owner=TestDataUtil.getTestOwnerA();
+        subject.create(owner);
+        subject.delete(owner.getId());
+        Optional<Owner> oowner = subject.findOne(owner.getId());
+
+        assertThat(!oowner.isPresent());
+    }
 }

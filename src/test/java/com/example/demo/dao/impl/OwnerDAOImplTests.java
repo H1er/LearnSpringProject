@@ -53,4 +53,28 @@ public class OwnerDAOImplTests {
         verify(jdbcTemplate).query(eq("SELECT id,name,age,address FROM owner"),
                 ArgumentMatchers.<OwnerDAOImpl.OwnerRowMapper>any());
     }
+
+    @Test
+    public void testUpdateCorrectSQL()
+    {
+        Owner owner = TestDataUtil.getTestOwnerA();
+        subject.update(owner);
+
+        verify(jdbcTemplate).update(eq("UPDATE owner SET name=?, age=?, address=? where id=?"),
+                        eq(owner.getName()),
+                        eq(owner.getAge()),
+                        eq(owner.getAddress()),
+                        eq(owner.getId())
+                );
+    }
+
+    @Test
+    public void testDeleteCorrectSQL()
+    {
+        Owner owner = TestDataUtil.getTestOwnerA();
+        subject.delete(owner.getId());
+
+        verify(jdbcTemplate).update("DELETE FROM owner WHERE id=?",owner.getId());
+
+    }
 }
