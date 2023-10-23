@@ -45,6 +45,19 @@ public class OwnerDAOImpl implements OwnerDAO {
                                             new OwnerRowMapper()) ;
     }
 
+    public void update(Owner owner) {
+        jdbcTemplate.update("UPDATE owner SET name=?, age=?, address=? where id=?",
+                owner.getName(),
+                owner.getAge(),
+                owner.getAddress(),
+                owner.getId());
+    }
+
+    public void delete(Long id)
+    {
+        jdbcTemplate.update("DELETE FROM owner WHERE id=?",id);
+    }
+
     public static class OwnerRowMapper implements RowMapper<Owner> {
 
         @Override
