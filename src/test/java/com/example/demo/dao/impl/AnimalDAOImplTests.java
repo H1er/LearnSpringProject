@@ -52,4 +52,28 @@ public class AnimalDAOImplTests {
                                     ArgumentMatchers.<AnimalDAOImpl.AnimalRowMapper>any());
     }
 
+    @Test
+    public void testUpdateCorrectSQL()
+    {
+        Animal animal = TestDataUtil.getTestAnimalA();
+        subject.update(animal);
+
+        verify(jdbcTemplate).update(eq("UPDATE animal SET age=?, name=?, race=?, owner_id=? WHERE id=?"),
+                eq(animal.getAge()),
+                eq(animal.getName()),
+                eq(animal.getRace()),
+                eq(animal.getOwner_id()),
+                eq(animal.getId()));
+    }
+
+    @Test
+    public void testDeleteCorrectSQL()
+    {
+        Animal animal = TestDataUtil.getTestAnimalA();
+        subject.delete(animal.getId());
+
+        verify(jdbcTemplate).update(eq("DELETE FROM animal WHERE id=?"),
+                                            eq(animal.getId()));
+    }
+
 }
