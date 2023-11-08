@@ -36,36 +36,36 @@ public final class TestDataUtil {
                 .build();
     }
 
-    public static Animal getTestAnimalA()
+    public static Animal getTestAnimalA(final Owner owner)
     {
         return Animal.builder() // Esta forma de crear objetos es posible gracias a que la clase utiliza
                 .id(1L)                  // el patron de diseño builder, especificado por la etiqueta @Builder de lombok
                 .age(4L)
                 .name("cosa")
                 .race("raza")
-                .owner_id(1L)
+                .owner(owner)
                 .build();
     }
 
-    public static Animal getTestAnimalB()
+    public static Animal getTestAnimalB(final Owner owner)
     {
         return Animal.builder()
                 .id(2L)
                 .age(7L)
                 .name("thing")
                 .race("cool")
-                .owner_id(2L)
+                .owner(owner)
                 .build();
     }
 
-    public static Animal getTestAnimalC()
+    public static Animal getTestAnimalC(final Owner owner)
     {
         return Animal.builder()
                 .id(3L)
                 .age(7L)
                 .name("chose")
                 .race("arigato")
-                .owner_id(1L)
+                .owner(owner)
                 .build();
     }
 }
