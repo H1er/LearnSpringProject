@@ -1,4 +1,4 @@
-package com.example.demo.dao.impl;
+package com.example.demo.repositories;
 
 import com.example.demo.TestDataUtil;
 import com.example.demo.domain.Owner;
@@ -9,8 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -19,11 +17,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class OwnerDAOImplIntegrationTests {
-    OwnerDAOImpl subject;
+public class OwnerRepositoryIntegrationTests {
+    OwnerRepository subject;
 
     @Autowired   //al ser un test, tenemos que usar la anotacion para indicar que queremos que se inyecte
-    public OwnerDAOImplIntegrationTests( OwnerDAOImpl subject) {
+    public OwnerRepositoryIntegrationTests(OwnerRepository subject) {
         this.subject=subject;
     }
 
@@ -31,8 +29,8 @@ public class OwnerDAOImplIntegrationTests {
     public void testOwnerCreatedAndFound()
     {
         Owner owner = TestDataUtil.getTestOwnerA();
-        subject.create(owner);
-        Optional<Owner> result = subject.findOne(owner.getId());
+        subject.save(owner);
+        Optional<Owner> result = subject.findById(owner.getId());
         assertThat(result.isPresent());
         assertThat(result.get()).isEqualTo(owner);
     }
@@ -40,15 +38,15 @@ public class OwnerDAOImplIntegrationTests {
     @Test
     public void testMultipleOwnersCreatedAndFound()
     {
-        List<Owner> owners;
+        Iterable<Owner> owners;
         Owner ownerA = TestDataUtil.getTestOwnerA();
         Owner ownerB = TestDataUtil.getTestOwnerB();
         Owner ownerC = TestDataUtil.getTestOwnerC();
-        subject.create(ownerA);
-        subject.create(ownerB);
-        subject.create(ownerC);
+        subject.save(ownerA);
+        subject.save(ownerB);
+        subject.save(ownerC);
 
-        owners = subject.getAll();
+        owners = subject.findAll();
         assertThat(owners)
                 .hasSize(3)
                 .contains(ownerA,ownerB,ownerC);
@@ -63,12 +61,12 @@ public class OwnerDAOImplIntegrationTests {
         Long owner_age_prev = owner.getAge();
         String owner_name_prev = owner.getName();
 
-        subject.create(owner);
+        subject.save(owner);
         owner.setAge((owner_age_prev+10L));
         owner.setName(owner_name_prev+" test");
 
-        subject.update(owner);
-        Optional<Owner> testowner = subject.findOne(owner.getId());
+        subject.save(owner);
+        Optional<Owner> testowner = subject.findById(owner.getId());
 
         assertThat(testowner.isPresent());
         assertThat(testowner.get().getAge()).isEqualTo(owner_age_prev+10L);
@@ -79,9 +77,9 @@ public class OwnerDAOImplIntegrationTests {
     public void testOwnerIsCreatedAndDeleted()
     {
         Owner owner=TestDataUtil.getTestOwnerA();
-        subject.create(owner);
-        subject.delete(owner.getId());
-        Optional<Owner> oowner = subject.findOne(owner.getId());
+        subject.save(owner);
+        subject.deleteById(owner.getId());
+        Optional<Owner> oowner = subject.findById(owner.getId());
 
         assertThat(!oowner.isPresent());
     }
