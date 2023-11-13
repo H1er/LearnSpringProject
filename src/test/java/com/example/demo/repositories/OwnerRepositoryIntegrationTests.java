@@ -99,4 +99,20 @@ public class OwnerRepositoryIntegrationTests {
 
 
     }
+
+    @Test
+    public void testGetOwnerAgeGreaterThan() //el metodo como tal no esta implementado, pero partiendo del nombre, spring data jpa
+    {                                     //es capaz de deducir que deberia de hacer el metodo
+        Owner ownerA = TestDataUtil.getTestOwnerA();
+        Owner ownerB = TestDataUtil.getTestOwnerB();
+        Owner ownerC = TestDataUtil.getTestOwnerC();
+        subject.save(ownerA);
+        subject.save(ownerB);
+        subject.save(ownerC);
+
+        Iterable<Owner> results = subject.findOwnerWithAgeGreaterThan(40);
+        assertThat(results).containsExactly(ownerC);
+
+
+    }
 }
