@@ -1,5 +1,7 @@
 package com.example.demo.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,6 +18,7 @@ import lombok.extern.java.Log;
 //spring data jpa annotations
 @Entity
 @Table(name = "owner") //assigns entity to a table in db
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Owner {
 
     @Id //tabla id field
@@ -24,5 +27,7 @@ public class Owner {
 
     private String name;
     private Long age;
+
+    @JsonProperty("dir")  //hace que al crear el JSON de un objeto, la clave tenga el nombre indicado en vez del de la variable
     private String address;
 }
