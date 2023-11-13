@@ -5,5 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository //similar to @Component anotation
-public interface OwnerRepository extends CrudRepository<Owner,Long> { //crud repository has all crud methods implemented by default
+public interface OwnerRepository extends CrudRepository<Owner,Long> {
+    Iterable<Owner> ageLessThan(int age); //crud repository has all crud methods implemented by default
 }
